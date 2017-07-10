@@ -1,0 +1,110 @@
+{
+    "kind": "List",
+    "apiVersion": "v1",
+    "metadata": {},
+    "items": [
+        {
+            "apiVersion": "v1",
+            "kind": "Namespace",
+            "metadata": {
+                "annotations": {
+                    "openshift.io/description": "",
+                    "openshift.io/display-name": "MyApp Development Environment",
+                    "openshift.io/requester": "alice"
+                },
+                "creationTimestamp": null,
+                "name": "myapp-dev"
+            },
+            "spec": {},
+            "status": {}
+        },
+        {
+            "apiVersion": "v1",
+            "groupNames": [
+                "system:serviceaccounts:myapp-dev"
+            ],
+            "kind": "RoleBinding",
+            "metadata": {
+                "creationTimestamp": null,
+                "name": "system:image-pullers",
+                "namespace": "myapp-dev"
+            },
+            "roleRef": {
+                "name": "system:image-puller"
+            },
+            "subjects": [
+                {
+                    "kind": "SystemGroup",
+                    "name": "system:serviceaccounts:myapp-dev"
+                }
+            ],
+            "userNames": null
+        },
+        {
+            "apiVersion": "v1",
+            "groupNames": null,
+            "kind": "RoleBinding",
+            "metadata": {
+                "creationTimestamp": null,
+                "name": "system:image-builders",
+                "namespace": "myapp-dev"
+            },
+            "roleRef": {
+                "name": "system:image-builder"
+            },
+            "subjects": [
+                {
+                    "kind": "ServiceAccount",
+                    "name": "builder"
+                }
+            ],
+            "userNames": [
+                "system:serviceaccount:myapp-dev:builder"
+            ]
+        },
+        {
+            "apiVersion": "v1",
+            "groupNames": null,
+            "kind": "RoleBinding",
+            "metadata": {
+                "creationTimestamp": null,
+                "name": "system:deployers",
+                "namespace": "myapp-dev"
+            },
+            "roleRef": {
+                "name": "system:deployer"
+            },
+            "subjects": [
+                {
+                    "kind": "ServiceAccount",
+                    "name": "deployer"
+                }
+            ],
+            "userNames": [
+                "system:serviceaccount:myapp-dev:deployer"
+            ]
+        },
+        {
+            "apiVersion": "v1",
+            "groupNames": null,
+            "kind": "RoleBinding",
+            "metadata": {
+                "creationTimestamp": null,
+                "name": "admin",
+                "namespace": "myapp-dev"
+            },
+            "roleRef": {
+                "name": "admin"
+            },
+            "subjects": [
+                {
+                    "kind": "User",
+                    "name": "bob"
+                }
+            ],
+            "userNames": [
+                "bob"
+            ]
+        }
+    ]
+}
