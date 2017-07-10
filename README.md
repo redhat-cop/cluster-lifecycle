@@ -1,4 +1,4 @@
-# An Approach to OpenShift CLuster Lifecyucle Management
+# An Approach to OpenShift Cluster Lifecycle Management
 
 ## Declarative Structure
 
