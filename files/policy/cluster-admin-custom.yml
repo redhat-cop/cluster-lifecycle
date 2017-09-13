@@ -32,21 +32,9 @@ items:
     name: cluster-admin-custom
   subjects:
   - kind: User
-    name: esauer
+    name: user1
   - kind: User
-    name: ablock
-  - kind: User
-    name: obedin
-  - kind: User
-    name: djurgens
-  - kind: User
-    name: rteague
-  - kind: User
-    name: sdodson
+    name: user2
   userNames:
-  - esauer
-  - ablock
-  - obedin
-  - djurgens
-  - rteague
-  - sdodson
+  - user1
+  - user2
