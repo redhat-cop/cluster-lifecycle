@@ -5,7 +5,7 @@ Using this inventory with the [openshift-applier](https://github.com/redhat-cop/
 ## Example Execution
 
 ``` 
-> ansible-playbook -i cakephp-example playbooks/openshift-cluster-seed.yml
+> ansible-playbook -i cakephp-example playbooks/openshift-cluster-seed.yml --connection=local
 ```
 
 Where `cakephp-example` is this inventory, and `playbooks/openshift-cluster-seed.yml` playbook is the one in the [casl-ansible](https://github.com/redhat-cop/casl-ansible) repository.
