@@ -32,9 +32,9 @@ items:
     name: cluster-admin-custom
   subjects:
   - kind: User
-    name: user1
+    name: bob
   - kind: User
-    name: user2
+    name: lisa
   userNames:
   - user1
   - user2
