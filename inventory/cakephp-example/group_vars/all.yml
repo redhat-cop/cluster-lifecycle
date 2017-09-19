@@ -1,0 +1,37 @@
+---
+
+openshift_cluster_content:
+- object: projectrequest
+  content:
+  - name: "my-cakephp-spaces"
+    file: "https://raw.githubusercontent.com/redhat-cop/cluster-lifecycle/master/files/cakephp/ProjectRequest/my-cakephp-spaces.yml"
+- object: namespace
+  content:
+  - name: "cakephp-development"
+    file: "https://raw.githubusercontent.com/redhat-cop/cluster-lifecycle/master/files/cakephp/namespace/development.yml"
+  - name: "cakephp-stage"
+    file: "https://raw.githubusercontent.com/redhat-cop/cluster-lifecycle/master/files/cakephp/namespace/stage.yml"
+  - name: "cakephp-production"
+    file: "https://raw.githubusercontent.com/redhat-cop/cluster-lifecycle/master/files/cakephp/namespace/production.yml"
+- object: policy
+  content_dir: "{{ inventory_dir }}/../../files/policy"
+- object: builds
+  content:
+  - name: "cakephp"
+    template: "https://raw.githubusercontent.com/redhat-cop/cluster-lifecycle/master/files/cakephp/build/template.yml"
+    params: "{{ inventory_dir }}/../../files/cakephp/build/development/params"
+- object: deployments
+  content:
+  - name: "jenkins"
+    namespace: "cakephp-dev"
+    template: "openshift//jenkins-ephemeral"
+    params: "{{ inventory_dir }}/../../files/cakephp/deployment/development/jenkins-params"
+  - name: "cakephp-development"
+    template: "https://raw.githubusercontent.com/redhat-cop/cluster-lifecycle/master/files/cakephp/deployment/template.yml"
+    params: "{{ inventory_dir }}/../../files/cakephp/deployment/development/params"
+  - name: "cakephp-stage"
+    template: "https://raw.githubusercontent.com/redhat-cop/cluster-lifecycle/master/files/cakephp/deployment/template.yml"
+    params: "{{ inventory_dir }}/../../files/cakephp/deployment/stage/params"
+  - name: "cakephp-development"
+    template: "https://raw.githubusercontent.com/redhat-cop/cluster-lifecycle/master/files/cakephp/deployment/template.yml"
+    params: "{{ inventory_dir }}/../../files/cakephp/deployment/production/params"

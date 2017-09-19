@@ -1,0 +1,40 @@
+---
+apiVersion: v1
+kind: List
+items:
+- apiVersion: v1
+  kind: ClusterRole
+  metadata:
+    creationTimestamp: null
+    name: cluster-admin-custom
+  rules:
+  - apiGroups:
+    - '*'
+    attributeRestrictions: null
+    resources:
+    - '*'
+    verbs:
+    - '*'
+  - apiGroups: null
+    attributeRestrictions: null
+    nonResourceURLs:
+    - '*'
+    resources: []
+    verbs:
+    - '*'
+- apiVersion: v1
+  groupNames: null
+  kind: ClusterRoleBinding
+  metadata:
+    creationTimestamp: null
+    name: cluster-admin-custom
+  roleRef:
+    name: cluster-admin-custom
+  subjects:
+  - kind: User
+    name: bob
+  - kind: User
+    name: lisa
+  userNames:
+  - bob
+  - lisa
