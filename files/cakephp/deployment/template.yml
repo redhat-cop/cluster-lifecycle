@@ -48,7 +48,7 @@ objects:
   kind: DeploymentConfig
   metadata:
     labels:
-      app: ${NAME}
+      application: ${NAME}
     name: ${NAME}
     namespace: ${NAMESPACE}
   spec:
@@ -67,7 +67,7 @@ objects:
     template:
       metadata:
         labels:
-          app: ${NAME}
+          application: ${NAME}
           deploymentconfig: ${NAME}
       spec:
         containers:
