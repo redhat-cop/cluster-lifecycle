@@ -1,0 +1,18 @@
+---
+
+openshift_cluster_content:
+- object: projectrequest
+  content:
+  - name: "acme-project"
+    file: "{{ inventory_dir }}/../../files/acme/project/project.yml"
+- object: policy
+  content_dir: "{{ inventory_dir }}/../../files/acme/policy"
+- object: deployments
+  content:
+  - name: acme-serviceaccount
+    namespace: acme
+    file: "{{ inventory_dir }}/../../files/acme/deployment/serviceaccount.yml"
+  - name: "acme-template"
+    namespace: "acme"
+    template: "{{ inventory_dir }}/../../files/acme/deployment/template.yml"
+    params: "{{ inventory_dir }}/../../files/acme/deployment/params"

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ClusterRoleBinding
+metadata:
+  name: acme-controller
+roleRef:
+  name: acme-controller
+subjects:
+- kind: ServiceAccount
+  name: acme
+  namespace: acme
+userNames:
+- system:serviceaccount:acme:acme
