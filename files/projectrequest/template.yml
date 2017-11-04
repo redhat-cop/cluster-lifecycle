@@ -16,7 +16,7 @@ objects:
   kind: ProjectRequest
   metadata:
     name: ${NAME}
-  description:  
+  description: '${DESCRIPTION}' 
   displayName: '${DISPLAY_NAME}'
 parameters:
 - description: Name
@@ -27,4 +27,6 @@ parameters:
   displayName: DisplayName
   name: DISPLAY_NAME
   required: true
-
+- description: Description
+  displayName: Description
+  name: DESCRIPTION
