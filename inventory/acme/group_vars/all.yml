@@ -4,14 +4,15 @@ openshift_cluster_content:
 - object: projectrequest
   content:
   - name: "acme-project"
-    file: "{{ inventory_dir }}/../../files/acme/project/project.yml"
+    template: "{{ inventory_dir }}/../../files/projectrequest/template.yml"
+    params: "{{ inventory_dir }}/../../files/acme/project/params"
 - object: policy
-  content_dir: "{{ inventory_dir }}/../../files/acme/policy"
+  content:
+  - name: "acme-template"
+    template: "{{ inventory_dir }}/../../files/acme/policy/template.yml"
+    params: "{{ inventory_dir }}/../../files/acme/policy/params"
 - object: deployments
   content:
-  - name: acme-serviceaccount
-    namespace: acme
-    file: "{{ inventory_dir }}/../../files/acme/deployment/serviceaccount.yml"
   - name: "acme-template"
     namespace: "acme"
     template: "{{ inventory_dir }}/../../files/acme/deployment/template.yml"

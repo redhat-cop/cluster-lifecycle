@@ -1,0 +1,3 @@
+NAME=acme
+DISPLAY_NAME=Acme
+DESCRIPTION=Let's Encrypt Integration With OpenShift
