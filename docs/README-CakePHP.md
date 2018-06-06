@@ -1,6 +1,6 @@
 # CakePHP Cluster LifeCycle Example
 
-Using the [CakePHP inventory](../inventory/cakephp-example) with the [openshift-applier](https://github.com/redhat-cop/casl-ansible/roles/openshift-applier) and the [openshift-cluster-seed](https://github.com/redhat-cop/casl-ansible/playbooks/openshift-cluster-seed.yml) playbook, it deploys a working pipeline and build/deployment stages projects, based on the CakePHP examples. 
+Using the [CakePHP inventory](../inventory/cakephp-example) with the [openshift-applier](https://github.com/redhat-cop/casl-ansible/roles/openshift-applier) and the [openshift-cluster-seed](https://github.com/redhat-cop/openshift-applier/raw/master/playbooks/openshift-cluster-seed.yml) playbook, it deploys a working pipeline and build/deployment stages projects, based on the CakePHP examples. 
 
 ## Example Execution
 
