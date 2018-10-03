@@ -51,6 +51,10 @@ objects:
           ports:
           - containerPort: 80
           env:
+          - name: OPENSHIFT_ACME_EXPOSER_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.pod
           - name: OPENSHIFT_ACME_ACMEURL
             value: "${OPENSHIFT_ACME_ACMEURL}"
           - name: OPENSHIFT_ACME_LOGLEVEL
