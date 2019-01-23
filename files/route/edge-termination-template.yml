@@ -1,0 +1,44 @@
+---
+apiVersion: v1
+kind: Template
+labels:
+  template: route-edge-service-template
+message: |-
+  The following route has been created: ${ROUTE_NAME} - ${ROUTE_HOSTNAME} - ${SERVICE_NAME}:${SERVICE_TARGET_PORT}
+metadata:
+  annotations:
+    description: |-
+      Route Template
+  name: route-template
+objects:
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    name: ${ROUTE_NAME}
+  spec:
+    host: ${ROUTE_HOSTNAME}
+    port:
+      targetPort: ${SERVICE_TARGET_PORT}
+    tls:
+      termination: edge
+    to:
+      kind: Service
+      name: ${SERVICE_NAME}
+      weight: 100
+    wildcardPolicy: None
+parameters:
+- name: ROUTE_NAME
+  description: 'Route name'
+  displayName: 'Route Name'
+  required: true
+- name: ROUTE_HOSTNAME
+  description: 'Route FQDN hostname, if not provided the route name will be used'
+  displayName: 'Route Hostname'
+- name: SERVICE_NAME
+  description: 'Service to route to'
+  displayName: 'Service Name'
+  required: true
+- name: SERVICE_TARGET_PORT
+  description: 'Service target port to route to'
+  displayName: 'Service Target Port'
+  required: true
