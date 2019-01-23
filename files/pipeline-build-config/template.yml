@@ -1,0 +1,37 @@
+---
+apiVersion: v1
+kind: Template
+labels:
+  template: pipeline-build-config-tempalte
+message: |-
+  Jenkins pipline has been created using: ${GIT_URL}/${JENKINSFILE_PATH}
+metadata:
+  annotations:
+    description: |-
+      Jenkins pipeline build config template.
+  name: pipeline-build-config-tempalte
+objects:
+- kind: "BuildConfig"
+  apiVersion: "v1"
+  metadata:
+    name: ${PIPELINE_NAME}
+  spec:
+    source:
+      git:
+        uri: ${GIT_URL}
+    strategy:
+      jenkinsPipelineStrategy:
+        jenkinsfilePath: ${JENKINSFILE_PATH}
+parameters:
+- description: Name of the pipeline
+  displayName: Pipeline Name
+  name: PIPELINE_NAME
+  required: true
+- description: Git repository URL containing the Jenkins file.
+  displayName: Git URL
+  name: GIT_URL
+  required: true
+- description: Jenkinsfile path in the given Git repository.
+  displayName: Jenkinsfile Path
+  name: JENKINSFILE_PATH
+  value: Jenkinsfile
