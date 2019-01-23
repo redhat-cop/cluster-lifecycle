@@ -1,0 +1,46 @@
+---
+apiVersion: v1
+kind: Template
+labels:
+  template: role-binding-template
+message: |-
+  The following role binding has been created: ${SUBJECT_KIND}:#SUBJECT_NAME}:${SUBJECT_NAMESPACE} - ${ROLE_KIND}:${ROLE_NAME}
+metadata:
+  annotations:
+    description: |-
+      RoleBinding Template
+  name: ${SUBJECT_NAME}-${ROLE_NAME}
+objects:
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: RoleBinding
+  metadata:
+    name: ${SUBJECT_NAME}-${ROLE_NAME}
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ${ROLE_KIND}
+    name: ${ROLE_NAME}
+  subjects:
+  - kind: ${SUBJECT_KIND}
+    name: ${SUBJECT_NAME}
+    namespace: ${SUBJECT_NAMESPACE}
+parameters:
+- name: ROLE_KIND
+  description: 'Role kind, ex: ClusterRole'
+  displayName: 'Role Kind'
+  required: true
+- name: ROLE_NAME
+  description: 'Role name, ex: edit,view,admin'
+  displayName: 'Role Name'
+  required: true
+- name: SUBJECT_KIND
+  description: 'Subject kind, ex: ServcieAccount'
+  displayName: 'Subject Kind'
+  required: true
+- name: SUBJECT_NAME
+  description: 'Subject name, aka the service account name, user name or group name.'
+  displayName: 'Subject Name'
+  required: true
+- name: SUBJECT_NAMESPACE
+  description: 'Namespace the subject resides in'
+  displayName: 'Subject Namespace'
+  required: true
