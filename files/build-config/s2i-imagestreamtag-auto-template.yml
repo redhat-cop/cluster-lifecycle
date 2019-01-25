@@ -1,0 +1,73 @@
+---
+apiVersion: v1
+kind: Template
+labels:
+  template: bc-s2i-imagestreamtag-auto-template
+message: |-
+  S2I Build config has been created sourcing: ${GIT_URL}
+metadata:
+  annotations:
+    description: |-
+      S2I build config template with automatic triggers for image change and config change.
+  name: bc-s2i-imagestreamtag-auto-template
+objects:
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    name: ${BUILD_CONFIG_NAME}
+  spec:
+    output:
+      to:
+        kind: ImageStreamTag
+        name: ${OUTPUT_IMAGE_STREAM_TAG_NAME}
+    postCommit: {}
+    resources: {}
+    runPolicy: Serial
+    source:
+      git:
+        ref: ${GIT_REF}
+        uri: ${GIT_URL}
+      type: Git
+    strategy:
+      sourceStrategy:
+        env:
+        - name: GIT_SSL_NO_VERIFY
+          value: ${GIT_SSL_NO_VERIFY}
+        from:
+          kind: ImageStreamTag
+          name: ${FROM_IMAGE_STREAM_TAG_NAME}
+          namespace: ${FROM_IMAGE_STREAM_TAG_NAMESPACE}
+      type: Source
+    triggers:
+    - imageChange: {}
+      type: ImageChange
+    - type: ConfigChange
+parameters:
+- description: Build config name
+  displayName: Build Config Name
+  name: BUILD_CONFIG_NAME
+  required: true
+- description: Output image stream tag name
+  displayName: Output Image Stream Tag Name
+  name: OUTPUT_IMAGE_STREAM_TAG_NAME
+  required: true
+- description: From image stream tag name
+  displayName: From Image Stream Tag Name
+  name: FROM_IMAGE_STREAM_TAG_NAME
+  required: true
+- description: From image stream tag namespace
+  displayName: From Image Stream Tag Namespace
+  name: FROM_IMAGE_STREAM_TAG_NAMESPACE
+  required: true
+- description: Git repository URL containing the source.
+  displayName: Git URL
+  name: GIT_URL
+  required: true
+- description: Git reference, aka, branch name or tag name.
+  displayName: Git Reference
+  name: GIT_REF
+  default: master 
+- description: Verify Git server SSL
+  displayName: Git SSL No Verify
+  name: GIT_SSL_NO_VERIFY
+  default: "false"
