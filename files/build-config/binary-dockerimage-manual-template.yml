@@ -1,0 +1,53 @@
+---
+apiVersion: v1
+kind: Template
+labels:
+  template: bc-binary-dockerimage-manual-template
+message: |-
+  Created binary build for docker image
+metadata:
+  annotations:
+    description: |-
+      Binary docker image build
+  name: bc-binary-dockerimage-manual-template
+objects:
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    name: ${BUILD_CONFIG_NAME}
+  spec:
+    output:
+      to:
+        kind: DockerImage
+        name: ${OUTPUT_IMAGE_NAME}
+    postCommit: {}
+    resources: {}
+    runPolicy: Serial
+    source:
+      binary: {}
+      type: Binary
+    strategy:
+      sourceStrategy:
+        from:
+          kind: ImageStreamTag
+          name: ${FROM_IMAGE_STREAM_TAG_NAME}
+          namespace: ${FROM_IMAGE_STREAM_TAG_NAMESPACE}
+      type: Source
+    triggers: []
+parameters:
+- description: Build config name
+  displayName: Build Config Name
+  name: BUILD_CONFIG_NAME
+  required: true
+- description: Output image path
+  displayName: Output Image Path
+  name: OUTPUT_IMAGE_NAME
+  required: true
+- description: From image stream tag name
+  displayName: From Image Stream Tag Name
+  name: FROM_IMAGE_STREAM_TAG_NAME
+  required: true
+- description: From image stream tag namespace
+  displayName: From Image Stream Tag Namespace
+  name: FROM_IMAGE_STREAM_TAG_NAMESPACE
+  required: true

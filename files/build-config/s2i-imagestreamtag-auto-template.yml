@@ -2,14 +2,14 @@
 apiVersion: v1
 kind: Template
 labels:
-  template: s2i-build-config-manual-template
+  template: bc-s2i-imagestreamtag-auto-template
 message: |-
   S2I Build config has been created sourcing: ${GIT_URL}
 metadata:
   annotations:
     description: |-
-      S2I build config template for manually invoked builds.
-  name: s2i-build-config-manual-template
+      S2I build config template with automatic triggers for image change and config change.
+  name: bc-s2i-imagestreamtag-auto-template
 objects:
 - apiVersion: v1
   kind: BuildConfig
@@ -38,7 +38,10 @@ objects:
           name: ${FROM_IMAGE_STREAM_TAG_NAME}
           namespace: ${FROM_IMAGE_STREAM_TAG_NAMESPACE}
       type: Source
-    triggers: []
+    triggers:
+    - imageChange: {}
+      type: ImageChange
+    - type: ConfigChange
 parameters:
 - description: Build config name
   displayName: Build Config Name
