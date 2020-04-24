@@ -10,7 +10,7 @@ Using this [acme inventory](../inventory/acme)  with the [openshift-applier](htt
 $ ansible-playbook -i acme playbooks/openshift-cluster-seed.yml
 ```
 
-Where `acme` is [acme inventory](../inventory/acme), and `playbooks/openshift-cluster-seed.yml` playbook is the one in the [casl-ansible](https://github.com/redhat-cop/casl-ansible) repository.
+Where `acme` is [acme inventory](../inventory/acme), and `playbooks/openshift-cluster-seed.yml` playbook is the one in the [openshift-applier](https://github.com/redhat-cop/openshift-applier) repository.
 
 ## Reference
 
