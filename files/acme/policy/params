@@ -1,3 +1,0 @@
-NAME=acme-controller
-NAMESPACE=acme
-SERVICEACCOUNT_NAME=acme

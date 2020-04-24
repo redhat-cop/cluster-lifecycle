@@ -1,19 +1,30 @@
 ---
 
+openshift_acme:
+  NAME: "openshift-acme"
+  NAMESPACE: "acme"
+  NAMESPACE_DISPLAY_NAME: "OpenShift Acme"
+  NAMESPACE_DESCRIPTION: "LE Integration With OpenShift"
+
+openshift_templates_raw: "https://raw.githubusercontent.com/redhat-cop/openshift-templates"
+openshift_templates_raw_version_tag: "v1.4.15"
+
+openshift_acme_raw: "https://raw.githubusercontent.com/tnozicka/openshift-acme"
+openshift_acme_raw_version_tag: "master"
+
 openshift_cluster_content:
-- object: projectrequest
+- object: openshift-acme
   content:
-  - name: "acme-project"
-    template: "{{ inventory_dir }}/../../files/projectrequest/template.yml"
-    params: "{{ inventory_dir }}/../../files/acme/project/params"
-- object: policy
-  content:
-  - name: "acme-template"
-    template: "{{ inventory_dir }}/../../files/acme/policy/template.yml"
-    params: "{{ inventory_dir }}/../../files/acme/policy/params"
-- object: deployments
-  content:
-  - name: "acme-template"
-    namespace: "acme"
-    template: "{{ inventory_dir }}/../../files/acme/deployment/template.yml"
-    params: "{{ inventory_dir }}/../../files/acme/deployment/params"
+  - name: project
+    template: "{{ openshift_templates_raw }}/{{ openshift_templates_raw_version_tag }}/project-requests/create-project.yml"
+    params_from_vars: "{{ openshift_acme }}"
+  - file: "{{ openshift_acme_raw }}/{{ openshift_acme_raw_version_tag }}/deploy/cluster-wide/serviceaccount.yaml"
+    namespace: "{{ openshift_acme.NAMESPACE }}"
+  - file: "{{ openshift_acme_raw }}/{{ openshift_acme_raw_version_tag }}/deploy/cluster-wide/clusterrole.yaml"
+    namespace: "{{ openshift_acme.NAMESPACE }}"
+  - file: "{{ openshift_acme_raw }}/{{ openshift_acme_raw_version_tag }}/deploy/cluster-wide/issuer-letsencrypt-live.yaml"
+    namespace: "{{ openshift_acme.NAMESPACE }}"
+  - file: "{{ openshift_acme_raw }}/{{ openshift_acme_raw_version_tag }}/deploy/cluster-wide/deployment.yaml"
+    namespace: "{{ openshift_acme.NAMESPACE }}"
+  - template: "{{ inventory_dir }}/../../files/acme/policy/clusterrolebinding.yml"
+    params_from_vars: "{{ openshift_acme }}"
