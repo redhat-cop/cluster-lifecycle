@@ -1,0 +1,34 @@
+---
+kind: Template
+apiVersion: v1
+labels:
+  template: letsencrypt-crb-template
+metadata:
+  annotations:
+    openshift.io/display-name: Let's Encrypt ClusterRoleBinding Template
+    description: Template for Configuring ClusterRoleBinding for the Let's Encrypt Controller.
+    tags: infrastructure,letsencrypt,controller,clusterrolebinding
+    template.openshift.io/documentation-url: https://github.com/tnozicka/openshift-acme.git
+  name: letsencrypt-policy
+objects:
+- kind: ClusterRoleBinding
+  apiVersion: authorization.openshift.io/v1
+  metadata:
+    name: ${NAME}
+  roleRef:
+    name: ${NAME}
+  subjects:
+  - kind: ServiceAccount
+    name: openshift-acme
+    namespace: ${NAMESPACE}
+  userNames:
+  - system:serviceaccount:${NAMESPACE}:openshift-acme
+parameters:
+- description: Name of the Policies
+  name: NAME
+  value: openshift-acme
+  required: true
+- description: The NameSpace to Deploy to
+  displayName: Namespace
+  name: NAMESPACE
+  required: true
